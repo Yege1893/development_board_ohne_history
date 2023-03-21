@@ -309,8 +309,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })*/
 
     elements.editButton.addEventListener("click", async (e) => {
-        const task = document.getElementsByClassName("in-edit")[0]
-        const id = task.id
+       // const task = document.getElementsByClassName("in-edit")[0]
+       const task  = elements.TaskIdElement.innerText
+        const id = task
 
         if (elements.taskName.value) {
             var modifiTime = await PutToDevAPI(id, elements.taskName.value, elements.taskDescription.value, elements.taskstatus.value, elements.tasksPriority.value, tasksModule.findAssignee(parseInt(elements.tasksAssignee.value)))
@@ -320,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
             GetTodosOfApi()
         }
 
-        task.classList.remove("in-edit")
+       // task.classList.remove("in-edit")
 
         toggleCreatewindow()
 
@@ -333,8 +334,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     elements.delteButton.addEventListener("click", (e) => {
-        const task = document.getElementsByClassName("in-edit")[0]
-        const taskId = task.id
+        const task  = elements.TaskIdElement.innerText
+        const id = task
+        const taskId = id
         tasksModule.remove(taskId)
     })
 
@@ -485,22 +487,23 @@ document.addEventListener("DOMContentLoaded", () => {
                         todo.status = "inprogress"
                     }
                     for (var i = 0; i < tasksModule.tasks.length; i++) {
-                        if (todo.modified_at) {
+                        
                             if (tasksModule.tasks[i].id === todo.id) {
                                 contains = true
-                                const DateInterTask = new Date(tasksModule.tasks[i].modifiedAt)
-                                const DateExternTodo = new Date(todo.modified_at)
+                        //        if (todo.modified_at) {
+                        //        const DateInterTask = new Date(tasksModule.tasks[i].modifiedAt)
+                        //        const DateExternTodo = new Date(todo.modified_at)
 
-                                if (DateInterTask < DateExternTodo) {
-                                    if (todo.responsibility === "support") {
+                        //        if (DateInterTask < DateExternTodo) {
+                                   if (todo.responsibility === "support") {
                                         statusToEdit = todo.responsibility
                                     } else {
                                         statusToEdit = todo.status
                                     }
                                     tasksModule.edit(todo.id, todo.title, todo.description, statusToEdit, todo.modified_at, todo.priority, todo.assignee, todo.completed_at, todo.created_at, todo.reporter, true)
-                                }
+                        //       }
                                 break
-                            }
+                        //    }
                         }
 
                     }
@@ -515,10 +518,13 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => {
                 console.error("Error:", error);
             });
-
-        setTimeout(GetTodosOfApi, 4000);
     }
-    GetTodosOfApi();
+
+    function RunGetTodosAuto(){
+        GetTodosOfApi()
+        setTimeout(RunGetTodosAuto, 3000);
+    }
+    RunGetTodosAuto()
 
     async function PostToDevApi(task) {
         var StatusToSend = "";
@@ -570,6 +576,10 @@ document.addEventListener("DOMContentLoaded", () => {
         var StatusToSend = "";
         var ToDoID = null;
         const current_time = tasksModule.creatCurrenTime()
+
+        if(!assignee){
+            assignee = tasksModule.findAssignee(0)
+        }
 
         var completed_at = "2000-01-20T01:00:00.000+00:00";
         if (status === "done") {
