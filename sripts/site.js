@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tasksCompleted: document.getElementById("task-completed_at"),
         tasksCreated: document.getElementById("task-created_at"),
         cancelButton: document.getElementById("cancel-button"),
-        historyButton: document.getElementById("history-button"),
+      //  historyButton: document.getElementById("history-button"),
         todo: document.getElementById("todo"),
         editButton: document.getElementById("edit-button"),
         delteButton: document.getElementById("delete-button"),
@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
     elements.createButton.addEventListener("click", (e) => {
         elements.savebutton.style.display = "block"
         elements.editButton.style.display = "none"
-        elements.historyButton.style.display = "none"
+       // elements.historyButton.style.display = "none"
         elements.delteButton.style.display = "none"
         elements.actiondescription.innerText = "New Task"
         deleteInput()
@@ -301,12 +301,12 @@ document.addEventListener("DOMContentLoaded", () => {
         toggleCreatewindow()
     })
 
-    elements.historyButton.addEventListener("click", async (e) => {
+   /* elements.historyButton.addEventListener("click", async (e) => {
         const currentId = elements.TaskIdElement.innerText
         var message = await getHistoryOfTodo(currentId)
         alert(message)
 
-    })
+    })*/
 
     elements.editButton.addEventListener("click", async (e) => {
         const task = document.getElementsByClassName("in-edit")[0]
@@ -398,7 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleCreatewindow()
             elements.savebutton.style.display = "none"
             elements.editButton.style.display = "block"
-            elements.historyButton.style.display = "block"
+         //   elements.historyButton.style.display = "block"
             elements.delteButton.style.display = "block"
             elements.actiondescription.innerText = "Edit Task"
             elements.TaskIdElement.innerText = task.id
