@@ -45,7 +45,8 @@ const tasksModule = {
         for (const index in this.tasks) {
             const task = this.tasks[index]
             if (task.id === id) {
-                this.tasks.splice(index, 1)
+                task.status = "deleted"
+                //this.tasks.splice(index, 1)
                 this.emit("remove", task)
             }
         }
