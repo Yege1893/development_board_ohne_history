@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+  background-color: rgb(30, 138, 32);
   }
   .hide {
     display: none;
@@ -57,7 +57,7 @@ body {
   }
   
   #done {
-    background-color: #018b01;
+    background-color: #06018b;
     /* display: none; */
   }
   
